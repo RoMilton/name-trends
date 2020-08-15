@@ -4,6 +4,9 @@ import classNames from 'classnames';
 const Tab = ({ children, isActive }) => (
   <div
     className={classNames(
+      isActive === true && 'bg-yellow border-black border-1',
+      'first:border-l-0',
+      'last:border-r-0',
       'text-center',
       'text-xl',
       'font-bold',
@@ -13,10 +16,10 @@ const Tab = ({ children, isActive }) => (
       'first:rounded-tl-none',
       'last:rounded-tr-none',
       'flex',
-      'py-6',
+      'py-5',
       'justify-center',
       'items-center',
-      isActive === true && 'bg-yellow border-black border-t-1 border-r-1'
+      'border-b-0'
     )}
   >
     {children}

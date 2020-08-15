@@ -26,6 +26,9 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    borderRadius: ['first', 'last'],
+    borderWidth: ['first', 'last'],
+  },
   plugins: [],
 };
