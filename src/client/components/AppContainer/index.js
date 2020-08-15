@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
+import Layout from 'components/Layout';
 
 const endpoints = {
   list: 'http://localhost:8080/list/',
@@ -24,26 +25,7 @@ const App = () => {
     fetchNames();
   }, []);
 
-  return (
-    <div className="">
-      {list.length < 1 ? (
-        <h1>Loading.. please wait!</h1>
-      ) : (
-        <>
-          <p>year: {year}</p>
-          <p>gender: {gender}</p>
-          <br />
-          <div>
-            {list.map((name) => (
-              <p key={name[0]}>
-                {name[1]}, {name[2]}
-              </p>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
+  return <Layout list={list} year={year} gender={gender} />;
 };
 
 export default App;

@@ -18,6 +18,12 @@ module.exports = {
         black: '#1D1313',
         brown: '#A69B94',
       },
+      fontSize: {
+        '4xl': '2.63rem',
+      },
+      borderWidth: {
+        '1': '1px',
+      },
     },
   },
   variants: {},

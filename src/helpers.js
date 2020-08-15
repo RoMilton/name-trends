@@ -3,11 +3,13 @@ export const genders = [
   {
     key: 'f',
     label: 'Girls',
-    icon: 'girl.svg',
+    icon: '/girl.svg',
+    color: 'red',
   },
   {
     key: 'm',
     label: 'Boys',
-    icon: 'girl.svg',
+    icon: '/boy.svg',
+    color: 'blue',
   },
 ];

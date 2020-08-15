@@ -11,5 +11,10 @@
     "no-console": "off",
     "comma-dangle": "off",
     "react/jsx-filename-extension": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
   }
 }
