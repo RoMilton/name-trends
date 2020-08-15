@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 import readline from "readline";
 import { range } from "lodash";
 import { yearRange, genders } from "../helpers.js";
-import { MONGO_URL, MONGO_DB_NAME, MONGO_YEARS } from "./helpers";
+import { mongoURL, DBName, yearsCollection } from "./helpers";
 
 const FILE_LINE_DELIMITER = "\r\n";
 const FILE_VALUE_DELIMITER = ",";
@@ -63,24 +63,24 @@ const insertYearDocuments = (db) => {
         genderKey: genderDetails.key,
       });
       console.log(`inserting document for ${year} | ${genderDetails.key}`);
-      db.collection(MONGO_YEARS).insertOne(newDocument);
+      db.collection(yearsCollection).insertOne(newDocument);
     });
   });
 };
 
 const clearDB = (db) => {
-  if (db.collection(MONGO_YEARS)) {
-    db.collection(MONGO_YEARS).drop();
+  if (db.collection(yearsCollection)) {
+    db.collection(yearsCollection).drop();
   }
 };
 
 const createDB = () => {
-  MongoClient.connect(MONGO_URL, function (err, client) {
+  MongoClient.connect(mongoURL, function (err, client) {
     handleError(err);
-    const db = client.db(MONGO_DB_NAME);
+    const db = client.db(DBName);
     clearDB(db);
 
-    db.createCollection(MONGO_YEARS, async function (err, result) {
+    db.createCollection(yearsCollection, async function (err, result) {
       handleError(err);
       insertYearDocuments(db);
       client.close();

@@ -1,4 +1,4 @@
-import { MONGO_DB_NAME, MONGO_URL, MONGO_YEARS } from "./helpers";
+import { DBName, mongoURL, yearsCollection } from "./helpers";
 import url from "url";
 import express from "express";
 import os from "os";
@@ -16,16 +16,16 @@ const corsOptions = {
   },
 };
 
-MongoClient.connect(MONGO_URL, function (err, client) {
+MongoClient.connect(mongoURL, function (err, client) {
   const app = express();
   app.use(cors());
   app.use(express.static("dist"));
-  const db = client.db(MONGO_DB_NAME);
+  const db = client.db(DBName);
 
   app.get("/list/", cors(corsOptions), async (req, res) => {
     const { query } = url.parse(req.url, true);
     const { year, gender } = query;
-    db.collection(MONGO_YEARS).findOne(
+    db.collection(yearsCollection).findOne(
       {
         gender,
         year: parseInt(year, 10),

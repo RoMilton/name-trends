@@ -15,5 +15,5 @@ Before starting a local build, check that the following requirements are met on 
 
 1. Run `yarn install`
 1. Run `yarn create-db` to create and populate the local MongoDB collection
-1. Run `npm run dev`
+1. Run `yarn run dev`
 1. Go to [http://localhost:3000/](http://localhost:3000/)
