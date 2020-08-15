@@ -1,13 +1,12 @@
-import fs from "fs";
-import { MongoClient } from "mongodb";
-import readline from "readline";
-import { range } from "lodash";
-import { yearRange, genders } from "../helpers.js";
-import { mongoURL, DBName, yearsCollection } from "./helpers";
+import fs from 'fs';
+import { MongoClient } from 'mongodb';
+import { range } from 'lodash';
+import { yearRange, genders } from '../helpers';
+import { mongoURL, DBName, yearsCollection } from './helpers';
 
-const FILE_LINE_DELIMITER = "\r\n";
-const FILE_VALUE_DELIMITER = ",";
-const FILE_VALUE_INDEX = {
+const lineDelimiter = '\r\n';
+const valueDelimiter = ',';
+const valueIndex = {
   firstName: 0,
   gender: 1,
   count: 2,
@@ -17,16 +16,10 @@ const handleError = (err) => {
   if (err) throw err;
 };
 
-const lineToArray = (lineString) =>
-  lineString.toLowerCase().split(FILE_VALUE_DELIMITER);
+const lineToArray = (lineString) => lineString.toLowerCase().split(valueDelimiter);
 
-const fileToArray = (filePath) => {
-  return fs
-    .readFileSync(filePath, "utf8")
-    .toString()
-    .split(FILE_LINE_DELIMITER)
-    .map(lineToArray);
-};
+const fileToArray = (filePath) =>
+  fs.readFileSync(filePath, 'utf8').toString().split(lineDelimiter).map(lineToArray);
 
 const doesFileExist = (filePath) => fs.existsSync(filePath);
 
@@ -36,13 +29,11 @@ const createDocument = ({ year, genderKey }) => {
     handleError(`Error: no file exists at ${filePath}`);
   }
   const allNames = fileToArray(filePath);
-  const filteredNames = allNames.filter(
-    (name) => name[FILE_VALUE_INDEX.gender] === genderKey
-  );
+  const filteredNames = allNames.filter((name) => name[valueIndex.gender] === genderKey);
   const parsedNames = filteredNames.map((name) => {
-    const firstName = name[FILE_VALUE_INDEX.firstName];
-    const gender = name[FILE_VALUE_INDEX.gender];
-    const count = name[FILE_VALUE_INDEX.count];
+    const firstName = name[valueIndex.firstName];
+    const gender = name[valueIndex.gender];
+    const count = name[valueIndex.count];
     return [`${firstName}-${gender}`, firstName, count];
   });
 
@@ -75,13 +66,13 @@ const clearDB = (db) => {
 };
 
 const createDB = () => {
-  MongoClient.connect(mongoURL, function (err, client) {
+  MongoClient.connect(mongoURL, (err, client) => {
     handleError(err);
     const db = client.db(DBName);
     clearDB(db);
 
-    db.createCollection(yearsCollection, async function (err, result) {
-      handleError(err);
+    db.createCollection(yearsCollection, async (collectionErr) => {
+      handleError(collectionErr);
       insertYearDocuments(db);
       client.close();
     });

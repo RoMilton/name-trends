@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import "./app.css";
-import ReactImage from "./react.png";
-import queryString from "query-string";
+import React, { useEffect, useState } from 'react';
+import './app.css';
+import queryString from 'query-string';
 
 const endpoints = {
-  list: "http://localhost:8080/list/",
+  list: 'http://localhost:8080/list/',
 };
 
 const App = () => {
   const [list, setList] = useState([]);
   const year = 1993;
-  const gender = "m";
+  const gender = 'm';
 
   const query = queryString.stringify({
     year,
@@ -28,7 +27,7 @@ const App = () => {
 
   return (
     <div>
-      {list.length < 1 (
+      {list.length < 1 ? (
         <h1>Loading.. please wait!</h1>
       ) : (
         <>
