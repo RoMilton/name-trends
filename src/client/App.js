@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './app.css';
 import queryString from 'query-string';
 
 const endpoints = {
@@ -8,7 +7,7 @@ const endpoints = {
 
 const App = () => {
   const [list, setList] = useState([]);
-  const year = 1993;
+  const year = 2000;
   const gender = 'm';
 
   const query = queryString.stringify({
@@ -26,7 +25,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       {list.length < 1 ? (
         <h1>Loading.. please wait!</h1>
       ) : (
