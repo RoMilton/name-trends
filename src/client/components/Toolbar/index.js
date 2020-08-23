@@ -1,11 +1,21 @@
 import React from 'react';
 import TabList from 'components/TabList';
 import Tab from 'components/TabList/Tab';
-import { genders } from 'src/helpers';
+import Spinbox from 'components/Spinbox';
+import TextInput from 'components/TextInput';
+import { genders, yearRange } from 'src/helpers';
 
 const Toolbar = () => (
   <>
-    <div>Number input</div>
+    <div className="w-64 mx-auto mb-8">
+      <Spinbox
+        label="Year:"
+        min={yearRange[0]}
+        max={yearRange[1]}
+        value="2018"
+        maxLength={4}
+      />
+    </div>
     <TabList>
       {genders.map((genderDetails) => (
         <Tab key={genderDetails.key} isActive={genderDetails.key === 'f'}>
@@ -21,6 +31,9 @@ const Toolbar = () => (
         </Tab>
       ))}
     </TabList>
+    <div className="bg-yellow py-16 px-6">
+      <TextInput placeholder="Find A Name" />
+    </div>
   </>
 );
 
