@@ -1,9 +1,9 @@
 import React from 'react';
-import TabList from 'components/TabList';
-import Tab from 'components/TabList/Tab';
+import Tab from 'components/Tab';
 import Spinbox from 'components/Spinbox';
 import TextInput from 'components/TextInput';
 import { genders, yearRange } from 'src/helpers';
+import searchIcon from './search.svg';
 
 const Toolbar = () => (
   <>
@@ -16,8 +16,8 @@ const Toolbar = () => (
         maxLength={4}
       />
     </div>
-    <TabList>
-      {genders.map((genderDetails) => (
+    <div className="flex">
+      {genders.map((genderDetails, index) => (
         <Tab key={genderDetails.key} isActive={genderDetails.key === 'f'}>
           <img
             title={genderDetails.label}
@@ -30,9 +30,9 @@ const Toolbar = () => (
           </span>
         </Tab>
       ))}
-    </TabList>
-    <div className="bg-yellow py-16 px-6">
-      <TextInput placeholder="Find A Name" />
+    </div>
+    <div className="bg-yellow py-8 px-6">
+      <TextInput placeholder="Find A Name" iconSrc={searchIcon} />
     </div>
   </>
 );

@@ -3,52 +3,43 @@ import classNames from 'classnames';
 
 const TextInput = ({
   id,
-  left,
+  className,
   name,
-  right,
   value,
   type,
   maxLength,
   textAlign,
-  bordered,
   label,
+  iconSrc,
+  placeholder,
 }) => {
   const highlight = (event) => {
     event.target.setSelectionRange(0, event.target.value.length);
   };
 
   return (
-    <>
-      {label && (
-        <label className="block text-lg mb-2" htmlFor={id}>
-          {label}
-        </label>
+    <input
+      id={id}
+      type={type}
+      value={value}
+      onFocus={highlight}
+      maxLength={maxLength}
+      placeholder={placeholder}
+      className={classNames(
+        'w-full text-xl h-12 bg-transparent text-xl px-3 pr-4',
+        iconSrc ? 'pl-12 bg-left-icon bg-no-repeat' : 'pl-4',
+        className
       )}
-      <div
-        className={classNames(
-          'flex w-full h-12 text-center border-black rounded-lg',
-          bordered && 'border-1'
-        )}
-      >
-        {left}
-        <input
-          id={id}
-          type="tel"
-          value={value}
-          onFocus={highlight}
-          className={`w-full text-xlfont-bold bg-transparent px-3 text-${textAlign}`}
-          maxLength={maxLength}
-        />
-        {right}
-      </div>
-    </>
+      style={{
+        backgroundImage: iconSrc ? `url(${iconSrc})` : '',
+      }}
+    />
   );
 };
 
 TextInput.defaultProps = {
   type: 'text',
-  textAlign: 'left',
-  bordered: false,
+  className: '',
 };
 
 export default TextInput;

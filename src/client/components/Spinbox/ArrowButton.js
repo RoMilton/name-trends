@@ -8,7 +8,7 @@ const ArrowButton = ({ direction }) => (
   <button
     type="button"
     className={classNames(
-      'w-12 text-white text-xl h-full bg-blue leading-3 text-5xl rounded-r-lg',
+      'w-16 text-white text-xl bg-blue leading-3 text-5xl rounded-r-lg',
       direction === 'left' && 'transform rotate-180'
     )}
   >

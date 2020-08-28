@@ -2,7 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 const Tab = ({ children, isActive }) => (
-  <div
+  <button
+    type="button"
     className={classNames(
       isActive === true && 'bg-yellow border-1 border-b-0',
       isActive === false && 'border-b-1',
@@ -24,7 +25,7 @@ const Tab = ({ children, isActive }) => (
     )}
   >
     {children}
-  </div>
+  </button>
 );
 
 export default Tab;

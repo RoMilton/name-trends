@@ -10,6 +10,9 @@ module.exports = {
     fontFamily: {
       body: ['PT Sans', 'sans-serif'],
     },
+    backgroundPosition: {
+      'left-icon': '10px center',
+    },
     extend: {
       colors: {
         blue: '#73BBC9',
