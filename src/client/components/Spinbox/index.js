@@ -12,15 +12,14 @@ const Spinbox = ({ label, id, ...otherProps }) => {
       )}
       <div className="flex">
         <ArrowButton direction="left" />
-        <div className="border-black border-1 border-l-0 border-r-0">
-          <TextInput
-            id={id}
-            type="tel"
-            bordered
-            className="font-bold text-center"
-            {...otherProps}
-          />
-        </div>
+        <TextInput
+          id={id}
+          type="tel"
+          rounded={false}
+          bold
+          centered
+          {...otherProps}
+        />
         <ArrowButton direction="right" />
       </div>
     </>

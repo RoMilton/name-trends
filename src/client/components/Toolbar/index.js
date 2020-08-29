@@ -7,7 +7,7 @@ import searchIcon from './search.svg';
 
 const Toolbar = () => (
   <>
-    <div className="w-64 mx-auto mb-8">
+    <div className="px-4 mb-8">
       <Spinbox
         label="Year:"
         min={yearRange[0]}
@@ -31,7 +31,7 @@ const Toolbar = () => (
         </Tab>
       ))}
     </div>
-    <div className="bg-yellow py-8 px-6">
+    <div className="bg-yellow py-8 px-4">
       <TextInput placeholder="Find A Name" iconSrc={searchIcon} />
     </div>
   </>

@@ -3,7 +3,9 @@ import classNames from 'classnames';
 
 const TextInput = ({
   id,
-  className,
+  bold,
+  bordered,
+  centered,
   name,
   value,
   type,
@@ -12,6 +14,7 @@ const TextInput = ({
   label,
   iconSrc,
   placeholder,
+  rounded,
 }) => {
   const highlight = (event) => {
     event.target.setSelectionRange(0, event.target.value.length);
@@ -26,9 +29,16 @@ const TextInput = ({
       maxLength={maxLength}
       placeholder={placeholder}
       className={classNames(
-        'w-full text-xl h-12 bg-transparent text-xl px-3 pr-4',
-        iconSrc ? 'pl-12 bg-left-icon bg-no-repeat' : 'pl-4',
-        className
+        'w-full',
+        'text-xl',
+        'px-3 py-3 pr-4',
+        'placeholder-brown',
+        'bg-white',
+        'border-brown border-1 outline-none focus:border-black',
+        iconSrc ? 'pl-icon bg-left-icon bg-no-repeat' : 'pl-4',
+        bold && 'font-bold',
+        centered && 'text-center',
+        rounded && 'rounded-lg'
       )}
       style={{
         backgroundImage: iconSrc ? `url(${iconSrc})` : '',
@@ -40,6 +50,9 @@ const TextInput = ({
 TextInput.defaultProps = {
   type: 'text',
   className: '',
+  bold: false,
+  rounded: true,
+  centered: false,
 };
 
 export default TextInput;

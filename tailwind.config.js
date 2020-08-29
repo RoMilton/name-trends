@@ -11,7 +11,7 @@ module.exports = {
       body: ['PT Sans', 'sans-serif'],
     },
     backgroundPosition: {
-      'left-icon': '10px center',
+      'left-icon': '1rem center',
     },
     extend: {
       colors: {
@@ -26,6 +26,9 @@ module.exports = {
       },
       borderWidth: {
         '1': '1px',
+      },
+      spacing: {
+        icon: '3.5rem',
       },
     },
   },
