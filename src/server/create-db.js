@@ -6,22 +6,57 @@ import { mongoURL, DBName, yearsCollection } from './helpers';
 
 const lineDelimiter = '\r\n';
 const valueDelimiter = ',';
-const valueIndex = {
-  firstName: 0,
-  gender: 1,
-  count: 2,
-};
 
 const handleError = (err) => {
   if (err) throw err;
 };
 
-const lineToArray = (lineString) => lineString.toLowerCase().split(valueDelimiter);
+const lineToArray = (lineString) =>
+  lineString.toLowerCase().split(valueDelimiter);
 
 const fileToArray = (filePath) =>
-  fs.readFileSync(filePath, 'utf8').toString().split(lineDelimiter).map(lineToArray);
+  fs
+    .readFileSync(filePath, 'utf8')
+    .toString()
+    .split(lineDelimiter)
+    .map(lineToArray);
 
 const doesFileExist = (filePath) => fs.existsSync(filePath);
+
+const getNameDetails = (name) => {
+  return {
+    firstName: name[0],
+    gender: name[1],
+    count: parseInt(name[2], 10),
+    rank: parseInt(name[3], 10),
+  };
+};
+
+const getRank = (name, previousName) => {
+  if (!previousName) return 1;
+  const { count: prevCount, rank: prevRank } = getNameDetails(previousName);
+  const { count } = getNameDetails(name);
+  return count === prevCount ? prevRank : prevRank + 1;
+};
+
+const addRanksToNames = (names) =>
+  names.reduce((accumNames, name, index) => {
+    const previousName = accumNames[index - 1] || null;
+    const rank = getRank(name, previousName);
+    return [...accumNames, [...name, rank]];
+  }, []);
+
+const addKeysToNames = (names) =>
+  names.map((name) => {
+    const { firstName, gender, count, rank } = getNameDetails(name);
+    return [`${firstName}-${gender}`, rank, firstName, count];
+  });
+
+const filterByGender = (names, genderKey) =>
+  names.filter((name) => {
+    const { gender } = getNameDetails(name);
+    return gender === genderKey;
+  });
 
 const createDocument = ({ year, genderKey }) => {
   const filePath = `data/yob${year}.txt`;
@@ -29,18 +64,14 @@ const createDocument = ({ year, genderKey }) => {
     handleError(`Error: no file exists at ${filePath}`);
   }
   const allNames = fileToArray(filePath);
-  const filteredNames = allNames.filter((name) => name[valueIndex.gender] === genderKey);
-  const parsedNames = filteredNames.map((name) => {
-    const firstName = name[valueIndex.firstName];
-    const gender = name[valueIndex.gender];
-    const count = name[valueIndex.count];
-    return [`${firstName}-${gender}`, firstName, count];
-  });
+  const filteredNames = filterByGender(allNames, genderKey);
+  const rankedNames = addRanksToNames(filteredNames);
+  const namesWithKeys = addKeysToNames(rankedNames);
 
   return {
     year,
     gender: genderKey,
-    names: parsedNames,
+    names: namesWithKeys,
   };
 };
 
