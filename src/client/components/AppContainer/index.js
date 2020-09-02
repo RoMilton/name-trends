@@ -8,17 +8,16 @@ const endpoints = {
 
 const App = () => {
   const [list, setList] = useState([]);
-  const year = 2000;
-  const gender = 'm';
-
-  const query = queryString.stringify({
+  const year = 2018;
+  const gender = 'f';
+  const queryParams = queryString.stringify({
     year,
     gender,
   });
 
   useEffect(() => {
     const fetchNames = async () => {
-      const response = await fetch(`${endpoints.list}?${query}`);
+      const response = await fetch(`${endpoints.list}?${queryParams}`);
       const data = await response.json();
       setList(data.names);
     };

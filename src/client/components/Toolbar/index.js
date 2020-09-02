@@ -3,7 +3,16 @@ import Tab from 'components/Tab';
 import Spinbox from 'components/Spinbox';
 import TextInput from 'components/TextInput';
 import { genders, yearRange } from 'src/helpers';
+import Table, {
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from 'components/Table';
 import searchIcon from './search.svg';
+
+// temp
+const names = [['rohan-m', 0, 'rohan', 3003]];
 
 const Toolbar = () => (
   <>
@@ -17,7 +26,7 @@ const Toolbar = () => (
       />
     </div>
     <div className="flex">
-      {genders.map((genderDetails, index) => (
+      {genders.map((genderDetails) => (
         <Tab key={genderDetails.key} isActive={genderDetails.key === 'f'}>
           <img
             title={genderDetails.label}
@@ -31,8 +40,28 @@ const Toolbar = () => (
         </Tab>
       ))}
     </div>
-    <div className="bg-yellow py-8 px-4">
-      <TextInput placeholder="Find A Name" iconSrc={searchIcon} />
+    <div className="bg-yellow py-8">
+      <div className="mb-8 px-4">
+        <TextInput placeholder="Find A Name" iconSrc={searchIcon} />
+      </div>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell />
+            <TableCell>Name</TableCell>
+            <TableCell>Count</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {names.map((name) => (
+            <TableRow key={name[0]}>
+              <TableCell>{name[1]}</TableCell>
+              <TableCell>{name[2]}</TableCell>
+              <TableCell>{name[3]}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   </>
 );
