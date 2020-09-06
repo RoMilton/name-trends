@@ -13,19 +13,20 @@ const TextInput = ({
   textAlign,
   label,
   iconSrc,
+  onChange,
   placeholder,
   rounded,
 }) => {
-  const highlight = (event) => {
-    event.target.setSelectionRange(0, event.target.value.length);
-  };
+  // const highlight = (event) => {
+  //   event.target.setSelectionRange(0, event.target.value.length);
+  // };
 
   return (
     <input
       id={id}
       type={type}
       value={value}
-      onFocus={highlight}
+      // onFocus={highlight}
       maxLength={maxLength}
       placeholder={placeholder}
       className={classNames(
@@ -42,6 +43,9 @@ const TextInput = ({
       )}
       style={{
         backgroundImage: iconSrc ? `url(${iconSrc})` : '',
+      }}
+      onChange={(event) => {
+        onChange(event.target.value);
       }}
     />
   );

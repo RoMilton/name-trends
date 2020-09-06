@@ -1,5 +1,6 @@
 import React from 'react';
 import Toolbar from 'client/components/Toolbar';
+import { NamesProvider } from 'client/context';
 
 const App = () => {
   return (
@@ -10,7 +11,9 @@ const App = () => {
           138 years of US Baby Name trends
         </h2>
       </header>
-      <Toolbar />
+      <NamesProvider>
+        <Toolbar />
+      </NamesProvider>
     </>
   );
 };
