@@ -7,8 +7,8 @@ import { mongoURL, DBName, yearsCollection } from './helpers';
 const lineDelimiter = '\r\n';
 const valueDelimiter = ',';
 
-const handleError = (err) => {
-  if (err) throw err;
+const handleError = (Error) => {
+  if (Error) throw new Error();
 };
 
 const lineToArray = (lineString) =>
@@ -84,24 +84,26 @@ const insertYearDocuments = (db) => {
         year,
         genderKey: genderDetails.key,
       });
-      console.log(`inserting document for ${year} | ${genderDetails.key}`);
+      console.log(`creating rankings for ${year} | ${genderDetails.key}`);
       db.collection(yearsCollection).insertOne(newDocument);
     });
   });
 };
 
-const clearDB = (db) => {
-  if (db.collection(yearsCollection)) {
-    db.collection(yearsCollection).drop();
+const clearDB = async (db) => {
+  try {
+    await db.collection(yearsCollection).drop();
+    console.log('Collection Deleted');
+  } catch {
+    console.log('No Existing Collection found');
   }
 };
 
-const createDB = () => {
-  MongoClient.connect(mongoURL, (err, client) => {
+const createDB = async () => {
+  MongoClient.connect(mongoURL, async (err, client) => {
     handleError(err);
     const db = client.db(DBName);
-    clearDB(db);
-
+    await clearDB(db);
     db.createCollection(yearsCollection, async (collectionErr) => {
       handleError(collectionErr);
       insertYearDocuments(db);

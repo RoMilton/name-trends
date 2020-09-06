@@ -5,12 +5,12 @@ export const genders = [
     key: 'f',
     label: 'Girls',
     icon: '/girl.svg',
-    color: 'red',
+    textClass: 'text-red',
   },
   {
     key: 'm',
     label: 'Boys',
     icon: '/boy.svg',
-    color: 'blue',
+    textClass: 'text-blue',
   },
 ];

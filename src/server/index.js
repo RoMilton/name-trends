@@ -1,28 +1,27 @@
-import { DBName, mongoURL, yearsCollection } from "./helpers";
-import url from "url";
-import express from "express";
-import os from "os";
-import cors from "cors";
-import { MongoClient } from "mongodb";
+import url from 'url';
+import express from 'express';
+import cors from 'cors';
+import { MongoClient } from 'mongodb';
+import { DBName, mongoURL, yearsCollection } from './helpers';
 
-const whitelist = ["http://localhost:3000", "http://name-trends.com"];
+const whitelist = ['http://localhost:3000', 'http://name-trends.com'];
 const corsOptions = {
-  origin: function (origin, callback) {
+  origin(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error('Not allowed by CORS'));
     }
   },
 };
 
-MongoClient.connect(mongoURL, function (err, client) {
+MongoClient.connect(mongoURL, (err, client) => {
   const app = express();
   app.use(cors());
-  app.use(express.static("dist"));
+  app.use(express.static('dist'));
   const db = client.db(DBName);
 
-  app.get("/list/", cors(corsOptions), async (req, res) => {
+  app.get('/list/', cors(corsOptions), async (req, res) => {
     const { query } = url.parse(req.url, true);
     const { year, gender } = query;
     db.collection(yearsCollection).findOne(
@@ -30,7 +29,7 @@ MongoClient.connect(mongoURL, function (err, client) {
         gender,
         year: parseInt(year, 10),
       },
-      (err, result) => {
+      (findErr, result) => {
         return res.send(result);
       }
     );

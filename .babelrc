@@ -9,7 +9,6 @@
         "alias": {
           "data": "./data",
           "client": "./src/client",
-          "components": "./src/client/components",
           "src": "./src/"
         }
       }

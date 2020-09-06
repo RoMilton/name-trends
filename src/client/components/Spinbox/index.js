@@ -1,5 +1,5 @@
 import React from 'react';
-import TextInput from 'components/TextInput';
+import TextInput from 'client/components/TextInput';
 import ArrowButton from './ArrowButton';
 
 const Spinbox = ({ label, id, ...otherProps }) => {
