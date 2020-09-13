@@ -12,8 +12,8 @@ const TableCell = ({ children }) => {
         'text-black text-lg text-left',
         'border-brown border-b-1',
         'px-4',
-        isHead ? 'font-bold h-16' : 'h-12',
-        'last:text-right'
+        'last:text-right',
+        isHead ? 'font-bold h-16 sticky top-table-heading bg-yellow' : 'h-12'
       )}
     >
       {children}

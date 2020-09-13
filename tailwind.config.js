@@ -31,6 +31,9 @@ module.exports = {
       spacing: {
         icon: '3.5rem',
       },
+      inset: {
+        'table-heading': '280px',
+      },
     },
   },
   variants: {

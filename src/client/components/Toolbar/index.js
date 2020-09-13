@@ -14,51 +14,52 @@ const Toolbar = () => {
   const { names, loading } = useRankings({ year, gender });
   const visibleNames = names.slice(0, 200);
   return (
-    <>
-      <div className="px-4 mb-8">
-        <Spinbox
-          id="year"
-          label="Year:"
-          min={yearRange[0]}
-          max={yearRange[1]}
-          value={year}
-          setValue={(val) => {
-            console.log('setValue()', val);
-            dispatch({ type: SET_YEAR, year: val });
-          }}
-          maxLength={4}
-          errorMsg={yearErrorMsg}
-        />
-      </div>
-      <div className="flex">
-        {genders.map((genderDetails) => (
-          <Tab
-            key={genderDetails.key}
-            isActive={genderDetails.key === gender}
-            onClick={() => {
-              dispatch({ type: SET_GENDER, gender: genderDetails.key });
+    <div className="flex flex-col">
+      <div className="sticky top-0 bg-white">
+        <div className="px-4 mb-5">
+          <Spinbox
+            id="year"
+            label="Year:"
+            min={yearRange[0]}
+            max={yearRange[1]}
+            value={year}
+            setValue={(val) => {
+              dispatch({ type: SET_YEAR, year: val });
             }}
-          >
-            <img
-              title={genderDetails.label}
-              alt={genderDetails.label}
-              src={genderDetails.icon}
-              className="mr-5"
-            />
-            <span className={genderDetails.textClass}>
-              {genderDetails.label}
-            </span>
-          </Tab>
-        ))}
-      </div>
-      <div className="bg-yellow py-8">
-        <div className="mb-2 px-4">
+            maxLength={4}
+            errorMsg={yearErrorMsg}
+          />
+        </div>
+        <div className="flex">
+          {genders.map((genderDetails) => (
+            <Tab
+              key={genderDetails.key}
+              isActive={genderDetails.key === gender}
+              onClick={() => {
+                dispatch({ type: SET_GENDER, gender: genderDetails.key });
+              }}
+            >
+              <img
+                title={genderDetails.label}
+                alt={genderDetails.label}
+                src={genderDetails.icon}
+                className="mr-5"
+              />
+              <span className={genderDetails.textClass}>
+                {genderDetails.label}
+              </span>
+            </Tab>
+          ))}
+        </div>
+        <div className="px-4 pt-5 pb-4 bg-yellow">
           <TextInput placeholder="Find A Name" iconSrc={searchIcon} />
         </div>
+      </div>
+      <div className="bg-yellow">
         {loading && <div>Loading</div>}
         {!loading && <RankingTable names={visibleNames} />}
       </div>
-    </>
+    </div>
   );
 };
 

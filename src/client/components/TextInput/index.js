@@ -29,7 +29,7 @@ const TextInput = ({
       'text-xl',
       'px-3 py-3 pr-4',
       'placeholder-brown',
-      'bg-white',
+      'bg-transparent',
       'border-1 outline-none',
       isError
         ? 'border-error-red focus:border-error-red'
