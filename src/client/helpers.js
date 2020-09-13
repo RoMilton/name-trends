@@ -1,11 +1,12 @@
 import useSWR from 'swr';
+import { inRange } from 'lodash';
 import queryString from 'query-string';
 import { yearRange } from 'src/helpers';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export const isValidYear = (year) =>
-  year >= yearRange[0] && year <= yearRange[1];
+  inRange(year, yearRange[0], yearRange[1] + 1);
 
 export const useRankings = ({ year, gender }) => {
   const queryParams = queryString.stringify({

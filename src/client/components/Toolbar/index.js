@@ -10,7 +10,6 @@ import searchIcon from './search.svg';
 
 const Toolbar = () => {
   const { state, dispatch } = useContext(namesContext);
-  console.log('state', state);
   const { gender, year, yearErrorMsg } = state;
   const { names, loading } = useRankings({ year, gender });
   const visibleNames = names.slice(0, 200);

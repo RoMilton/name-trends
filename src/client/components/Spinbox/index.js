@@ -1,13 +1,29 @@
 import React from 'react';
+import { inRange } from 'lodash';
 import TextInput from 'client/components/TextInput';
 import ArrowButton from './ArrowButton';
 
-const Spinbox = ({ label, id, value, setValue, errorMsg, ...otherProps }) => {
+const isIncrementDisabled = (value, min, max) =>
+  Number.parseInt(value, 10) >= max || !inRange(value, min, max + 1);
+
+const isDecrementDisabled = (value, min, max) =>
+  Number.parseInt(value, 10) <= min || !inRange(value, min, max + 1);
+
+const Spinbox = ({
+  label,
+  id,
+  value,
+  setValue,
+  errorMsg,
+  max,
+  min,
+  ...otherProps
+}) => {
   const onTextboxChange = (val) => {
     if (val === '') {
       setValue(val);
-    } else if (!isNaN(val)) {
-      setValue(parseInt(val, 10));
+    } else if (!Number.isNaN(val)) {
+      setValue(val);
     }
   };
   return (
@@ -21,6 +37,7 @@ const Spinbox = ({ label, id, value, setValue, errorMsg, ...otherProps }) => {
         <ArrowButton
           direction="left"
           onClick={() => onTextboxChange(value - 1)}
+          disabled={isDecrementDisabled(value, min, max)}
         />
         <TextInput
           id={id}
@@ -36,6 +53,7 @@ const Spinbox = ({ label, id, value, setValue, errorMsg, ...otherProps }) => {
         <ArrowButton
           direction="right"
           onClick={() => onTextboxChange(value + 1)}
+          disabled={isIncrementDisabled(value, min, max)}
         />
       </div>
       <div className="text-error-red text-center pt-2 text-lg font-bold">
