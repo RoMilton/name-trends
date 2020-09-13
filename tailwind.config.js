@@ -20,6 +20,7 @@ module.exports = {
         yellow: '#FFF6EA',
         black: '#1D1313',
         brown: '#A69B94',
+        'error-red': '#FE6362',
       },
       fontSize: {
         '4xl': '2.63rem',

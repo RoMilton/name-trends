@@ -11,13 +11,14 @@ import searchIcon from './search.svg';
 const Toolbar = () => {
   const { state, dispatch } = useContext(namesContext);
   console.log('state', state);
-  const { gender, year, search } = state;
+  const { gender, year, yearErrorMsg } = state;
   const { names, loading } = useRankings({ year, gender });
   const visibleNames = names.slice(0, 200);
   return (
     <>
       <div className="px-4 mb-8">
         <Spinbox
+          id="year"
           label="Year:"
           min={yearRange[0]}
           max={yearRange[1]}
@@ -27,6 +28,7 @@ const Toolbar = () => {
             dispatch({ type: SET_YEAR, year: val });
           }}
           maxLength={4}
+          errorMsg={yearErrorMsg}
         />
       </div>
       <div className="flex">

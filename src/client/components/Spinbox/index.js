@@ -2,7 +2,7 @@ import React from 'react';
 import TextInput from 'client/components/TextInput';
 import ArrowButton from './ArrowButton';
 
-const Spinbox = ({ label, id, value, setValue, ...otherProps }) => {
+const Spinbox = ({ label, id, value, setValue, errorMsg, ...otherProps }) => {
   const onTextboxChange = (val) => {
     if (val === '') {
       setValue(val);
@@ -28,6 +28,7 @@ const Spinbox = ({ label, id, value, setValue, ...otherProps }) => {
           rounded={false}
           bold
           centered
+          isError={!!errorMsg}
           value={value}
           onChange={onTextboxChange}
           {...otherProps}
@@ -36,6 +37,9 @@ const Spinbox = ({ label, id, value, setValue, ...otherProps }) => {
           direction="right"
           onClick={() => onTextboxChange(value + 1)}
         />
+      </div>
+      <div className="text-error-red text-center pt-2 text-lg font-bold">
+        {errorMsg}
       </div>
     </>
   );
